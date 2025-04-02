@@ -1,0 +1,10 @@
+import { BetEntity } from "@/entities";
+import { Request, Response } from "express";
+import { Server } from "socket.io";
+export declare let startPendingFlag: boolean;
+export declare const startGame: (io: Server) => Promise<void>;
+export declare const emitUserHistory: (username: string, socketId: string, io: Server) => Promise<void>;
+export declare const addBetToCurrentRound: (bet: BetEntity, io: Server) => Promise<void>;
+export declare const onCashout: (username: String, multiplier: number, io: Server) => Promise<any>;
+export declare const emitUserList: (io: Server, gameEndFlag: boolean) => Promise<void>;
+export declare const fetchHistory: (req: Request, res: Response) => Promise<void>;

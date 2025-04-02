@@ -112,6 +112,7 @@ const Game: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full">
+     <img src="/aitplane-crash.e54114f0b2a9.png" alt="" className="hidden" />
       {/* Top Display */}
       <div className="h-[40vh] md:h-3/5 bg-[#151937] rounded-3xl flex items-center justify-center mb-4 text-4xl md:text-7xl overflow-hidden font-extrabold px-4 md:px-12 relative">
         <ParallaxMountains isMoving={gameActive} />

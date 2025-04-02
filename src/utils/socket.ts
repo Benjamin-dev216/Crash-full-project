@@ -10,9 +10,11 @@ import axios from "axios";
 
 export const setupSocket = (server: any) => {
   const io = new Server(server, {
+    path: "/api/socket.io",
     cors: {
-      origin: "http://localhost:5173",
+      origin: "http://royel7.club",
       methods: ["GET", "POST"],
+      credentials: true,
     },
   });
 

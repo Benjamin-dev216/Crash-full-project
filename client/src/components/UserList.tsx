@@ -60,14 +60,14 @@ const UserList: React.FC = () => {
           <div>Total bets</div>
           <span className="flex items-center">
             <FaCoins className="mr-2 text-xl" />
-            {totalBets.toLocaleString()} USD
+            {totalBets.toLocaleString()} AFC
           </span>
         </div>
         <div className="flex flex-col items-center">
           <div>Total winnings</div>
           <span className="flex items-center">
             <FaTrophy className="mr-2 text-xl" />
-            {totalWinnings.toLocaleString()} USD
+            {totalWinnings.toLocaleString()} AFC
           </span>
         </div>
       </div>
@@ -114,14 +114,14 @@ const UserList: React.FC = () => {
                       {user.cashoutAt ? `x${user.cashoutAt.toFixed(2)}` : "x0"}
                     </td>
                     <td className="p-2 text-blue-300">
-                      {user.amount.toLocaleString()} USD
+                      {user.amount.toLocaleString()} AFC
                     </td>
                     <td
                       className={`p-2 ${
                         winAmount > 0 ? "text-green-400" : "text-red-400"
                       }`}
                     >
-                      {winAmount.toLocaleString()} USD
+                      {winAmount.toLocaleString()} AFC
                     </td>
                   </tr>
                 );
