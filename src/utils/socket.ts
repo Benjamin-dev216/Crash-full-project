@@ -16,10 +16,10 @@ function sanitizeBalance(input: string): number {
   }
 
   // Round to 4 decimal places
-  parsed = Math.round(parsed * 10000) / 10000;
+  parsed = Math.round(parsed * 100000000) / 1000000000;
 
   // Check if it's within precision constraints
-  if (parsed < 0 || parsed > 999999.9999) {
+  if (parsed < 0 || parsed > 9999999999.9999) {
     throw new Error("Balance is out of allowed range");
   }
 
@@ -83,7 +83,7 @@ export const setupSocket = (server: any) => {
       } catch (error) {
         console.error("Error in placeBet:", error);
         socket.emit("error", {
-          message: "Your bet is failed, Please wait a second.",
+          message: "Your bet is failed",
           details: (error as Error).message,
         });
       }
@@ -101,7 +101,7 @@ export const setupSocket = (server: any) => {
       } catch (error) {
         console.error("Error in cashout:", error);
         socket.emit("error", {
-          message: "Your cashout is failed, Please wait a second.",
+          message: "Your cashout is failed",
           details: (error as Error).message,
         });
       }
