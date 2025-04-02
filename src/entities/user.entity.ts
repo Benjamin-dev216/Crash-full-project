@@ -15,7 +15,7 @@ export class UserEntity extends CoreEntity {
   @Column({ name: "user_id" })
   user_id: number;
 
-  @Column({ type: "numeric", precision: 10, scale: 4, default: 1000 })
+  @Column({ type: "numeric", precision: 14, scale: 4, default: 1000 })
   balance: number;
 
   @OneToMany(() => BetEntity, (bet) => bet.user)

@@ -8,6 +8,24 @@ import {
 } from "@/controllers/game.controller";
 import axios from "axios";
 
+function sanitizeBalance(input: string): number {
+  let parsed = parseFloat(input.trim());
+
+  if (isNaN(parsed)) {
+    throw new Error("Invalid balance: not a number");
+  }
+
+  // Round to 4 decimal places
+  parsed = Math.round(parsed * 10000) / 10000;
+
+  // Check if it's within precision constraints
+  if (parsed < 0 || parsed > 999999.9999) {
+    throw new Error("Balance is out of allowed range");
+  }
+
+  return parsed;
+}
+
 export const setupSocket = (server: any) => {
   const io = new Server(server, {
     path: "/api/socket.io",
@@ -39,9 +57,9 @@ export const setupSocket = (server: any) => {
 
         const rlt = await axios.get(`https://jackpot-junction.org/api/user-details/${user_id}`)
 
-        user.balance = rlt.data.balance;
-        await userRepository.save(user);
-        if (rlt.data.balance < amount) {
+        user.balance = sanitizeBalance(rlt.data.balance);
+        userRepository.save(user);
+        if (user.balance < amount) {
           return socket.emit("error", { message: "Insufficient balance" });
         }
         const bet = new BetEntity();
@@ -65,7 +83,7 @@ export const setupSocket = (server: any) => {
       } catch (error) {
         console.error("Error in placeBet:", error);
         socket.emit("error", {
-          message: "Internal server error",
+          message: "Your bet is failed, Please wait a second.",
           details: (error as Error).message,
         });
       }
@@ -83,7 +101,7 @@ export const setupSocket = (server: any) => {
       } catch (error) {
         console.error("Error in cashout:", error);
         socket.emit("error", {
-          message: "Internal server error",
+          message: "Your cashout is failed, Please wait a second.",
           details: (error as Error).message,
         });
       }

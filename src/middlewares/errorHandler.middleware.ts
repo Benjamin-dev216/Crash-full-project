@@ -11,5 +11,5 @@ export const errorHandlerMiddleware = (
 ) => {
   Logger.error(err);
 
-  res.status(500).json({ message: "Internal Server Error!" });
+  res.status(500).json({ message: "Please Wait, it seems there is an issue." });
 };

@@ -97,7 +97,7 @@ const endGame = async (crashPoint: number, io: Server) => {
       await userRepository.save(bet.user);
 
       processedUsers.set(bet.user.name, bet.socketId); // Add user to processed list
-      io.to(bet.socketId).emit("betResult", {win: bet.result === 'win', amount: bet.amount})
+      io.to(bet.socketId).emit("betResult", { win: bet.result === 'win', amount: bet.amount })
     }
 
     emitUserList(io, true);
@@ -212,14 +212,14 @@ export const onCashout = async (
   multiplier: number,
   io: Server
 ) => {
-  if(startPendingFlag) return null;
+  if (startPendingFlag) return null;
   currentRoundBets.forEach((item) => {
     if (item.user.name !== username) return;
-  
+
     item.cashoutAt = parseFloat(multiplier.toFixed(4));
     item.result = multiplier <= currentRound.crashPoint ? "win" : "lose";
-    item.multiplier = multiplier<= currentRound.crashPoint? multiplier: null;
-  
+    item.multiplier = multiplier <= currentRound.crashPoint ? multiplier : null;
+
     if (item.result === "win") {
       emitUserList(io, false);
     }
@@ -312,7 +312,7 @@ export const fetchHistory = async (
     });
   } catch (error) {
     console.error("Error fetching user history:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "User history didn't fetched" });
   }
 };
 
