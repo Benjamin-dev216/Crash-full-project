@@ -12,6 +12,7 @@ import {
 } from "@/middlewares";
 import { startGame } from "@/controllers/game.controller";
 import { setupSocket } from "@/utils/socket";
+import { resetBets } from "@/utils/resetdb";
 
 export const backendSetup = () => {
   const app: Express = express();
@@ -26,7 +27,14 @@ export const backendSetup = () => {
     res.send("It's healthy!");
   });
 
-  // 👇 Serve frontend only in production
+  app.use("/api/reset/db", async (_req: Request, res: Response) => {
+    try {
+      await resetBets();
+      res.send('Successed')
+    } catch (e) {
+      res.status(409).json('Reseting failed')
+    }
+  });
 
   // ✅ Mount API routes before catch-all
   app.use("/api", router);

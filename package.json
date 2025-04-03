@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npx nodemon src/index.ts",
-    "db:seed": "ts-node src/seeds/user.seeder.ts",
+    "db:seed": "ts-node src/seek/user.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "dev": "concurrently \"yarn start\" \"yarn client:dev\"",
